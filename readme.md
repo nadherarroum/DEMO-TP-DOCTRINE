@@ -1,6 +1,7 @@
 ## Clone project in your work folder
 # in terminal CMD :
 > D:
+
 > cd D:\MyWorkFolder
 
 # Clone project
@@ -8,6 +9,6 @@
 
 ## open project in VSCode (or other IDE)
 # install composer
-````bash
+```bash
 > composer install
 ```
