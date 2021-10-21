@@ -32,6 +32,11 @@ class Voiture
      */
     private $modele;
 
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
+     */
+    private $prixJour;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Voiture
     public function setModele(?string $modele): self
     {
         $this->modele = $modele;
+
+        return $this;
+    }
+    
+    public function getPrixJour(): ?string
+    {
+        return $this->prixJour;
+    }
+
+    public function setPrixJour(?string $prixJour): self
+    {
+        $this->prixJour = $prixJour;
 
         return $this;
     }

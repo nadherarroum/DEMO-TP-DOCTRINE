@@ -30,11 +30,6 @@ class Location
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
-    private $prixJour;
-
-    /**
-     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
-     */
     private $prix;
 
     public function getId(): ?int
@@ -62,18 +57,6 @@ class Location
     public function setDateRetour(?\DateTimeInterface $dateRetour): self
     {
         $this->dateRetour = $dateRetour;
-
-        return $this;
-    }
-
-    public function getPrixJour(): ?string
-    {
-        return $this->prixJour;
-    }
-
-    public function setPrixJour(?string $prixJour): self
-    {
-        $this->prixJour = $prixJour;
 
         return $this;
     }
