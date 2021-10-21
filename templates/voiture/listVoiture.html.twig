@@ -1,0 +1,15 @@
+<h1>List des Voiture</h1>
+<table border="1">
+    <tr>
+        <td>Serie</td>
+        <td>Date M C</td>
+        <td>Modele</td>
+    </tr>
+    {% for v in listVoiture %}
+        <tr>
+            <td>{{ v.Serie }}</td>
+            <td>{{ v.dateMiseEnMarche | date }}</td>
+            <td>{{ v.modele }}</td>
+        </tr>
+    {% endfor %}
+</table>
