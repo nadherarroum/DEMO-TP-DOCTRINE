@@ -12,3 +12,6 @@
 ```bash
 > composer install
 ```
+
+# Database
+In your Database, import the " workshop.sql " file
