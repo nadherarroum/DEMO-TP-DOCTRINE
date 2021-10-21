@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VoitureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Voiture
      * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
     private $prixJour;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="voiture")
+     */
+    private $location;
+
+    public function __construct()
+    {
+        $this->location = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Voiture
     public function setPrixJour(?string $prixJour): self
     {
         $this->prixJour = $prixJour;
+
+        return $this;
+    }
+ 
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+            $location->setVoiture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->location->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getVoiture() === $this) {
+                $location->setVoiture(null);
+            }
+        }
 
         return $this;
     }

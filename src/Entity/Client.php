@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Client
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adresse;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="client")
+     */
+    private $location;
+
+    public function __construct()
+    {
+        $this->location = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Client
     public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+            $location->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->location->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getClient() === $this) {
+                $location->setClient(null);
+            }
+        }
 
         return $this;
     }

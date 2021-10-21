@@ -32,6 +32,17 @@ class Location
      */
     private $prix;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="location")
+     */
+    private $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Voiture::class, inversedBy="voiture")
+    */
+    private $voiture;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +80,30 @@ class Location
     public function setPrix(?string $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getVoiture(): ?Voiture
+    {
+        return $this->voiture;
+    }
+
+    public function setVoiture(?Voiture $voiture): self
+    {
+        $this->voiture = $voiture;
 
         return $this;
     }
