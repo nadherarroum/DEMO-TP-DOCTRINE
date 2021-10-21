@@ -44,10 +44,6 @@ class Client
      */
     private $location;
 
-    public function __construct()
-    {
-        $this->location = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -102,33 +98,4 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|Location[]
-     */
-    public function getLocation(): Collection
-    {
-        return $this->location;
-    }
-
-    public function addLocation(Location $location): self
-    {
-        if (!$this->location->contains($location)) {
-            $this->location[] = $location;
-            $location->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLocation(Location $location): self
-    {
-        if ($this->location->removeElement($location)) {
-            // set the owning side to null (unless already changed)
-            if ($location->getClient() === $this) {
-                $location->setClient(null);
-            }
-        }
-
-        return $this;
-    }
 }
