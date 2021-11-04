@@ -10,6 +10,7 @@
             <td>{{ v.Serie }}</td>
             <td>{{ v.dateMiseEnMarche | date }}</td>
             <td>{{ v.modele }}</td>
+            <td><a href="{{ path("voitureDelete", {'id': v.id}) }}">Delete</a></td>
         </tr>
     {% endfor %}
 </table>

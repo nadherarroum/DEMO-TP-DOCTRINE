@@ -7,6 +7,7 @@ use App\Form\VoitureForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class VoitureController extends AbstractController
@@ -42,5 +43,19 @@ class VoitureController extends AbstractController
         return $this->render('voiture/addVoiture.html.twig', [
             'formVoiture' => $form->createView(),
         ]);
+    }
+
+    #[Route("/deleteVoiture/{id}", name:"voitureDelete")]
+    public function deleteVoiture($id): Response
+    {
+        $em= $this->getDoctrine()->getManager();
+        $voiture = $em->getRepository("App\Entity\Voiture")->find($id);
+        if($voiture!== null){
+            $em->remove($voiture);
+            $em->flush();
+        }else{
+            throw new NotFoundHttpException("La voiture d'id ".$id."n'existe pas");
+        }
+        return $this->redirectToRoute('voiture');
     }
 }
