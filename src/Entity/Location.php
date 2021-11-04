@@ -33,13 +33,13 @@ class Location
     private $prix;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="location")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="locations")
      */
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Voiture::class, inversedBy="voiture")
-    */
+     * @ORM\ManyToOne(targetEntity=Voiture::class, inversedBy="locations")
+     */
     private $voiture;
 
 
@@ -83,6 +83,7 @@ class Location
 
         return $this;
     }
+
 
     public function getClient(): ?Client
     {

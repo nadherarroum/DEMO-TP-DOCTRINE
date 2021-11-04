@@ -42,7 +42,12 @@ class Voiture
     /**
      * @ORM\OneToMany(targetEntity=Location::class, mappedBy="voiture")
      */
-    private $location;
+    private $locations;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -94,6 +99,36 @@ class Voiture
     public function setPrixJour(?string $prixJour): self
     {
         $this->prixJour = $prixJour;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setVoiture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getVoiture() === $this) {
+                $location->setVoiture(null);
+            }
+        }
 
         return $this;
     }
