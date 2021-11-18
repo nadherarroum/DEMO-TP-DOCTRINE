@@ -14,4 +14,8 @@
 ```
 
 # Database
-In your Database, import the " workshop.sql " file
+* Migrate database : 
+> php bin/console doctrine:migrations:migrate
+or 
+> symfony console doctrine:migrations:migrate
+
