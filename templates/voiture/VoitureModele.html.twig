@@ -1,0 +1,16 @@
+<h1>Liste des voitures</h1>
+<table border="1">
+    <tr>
+        <td>Libelle</td>
+        <td>Serie</td>
+    </tr>
+    {%  for m in voituresModeles %}
+        <tr>
+            <td> {{ m.libelle }}</td>
+            <td> {{ m[0].serie }}</td>
+            {% for v in m[0] %}
+            <td> {{ v.serie }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

@@ -22,31 +22,33 @@ class Voiture
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Serie;
+    private $serie;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $dateMiseEnMarche;
+    private $date_mise_circulation;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $prixJour;
+    private $modele;
 
     /**
-     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="voiture")
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="voitureLoc")
      */
-    private $locations;
+    private $locationsVoiture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Model::class, inversedBy="voiture")
+     * @ORM\ManyToOne(targetEntity=Modele::class, inversedBy="voitures")
      */
-    private $model;
+    private $marque;
+
+
 
     public function __construct()
     {
-        $this->locations = new ArrayCollection();
+        $this->locationsVoiture = new ArrayCollection();
     }
 
 
@@ -57,82 +59,88 @@ class Voiture
 
     public function getSerie(): ?string
     {
-        return $this->Serie;
+        return $this->serie;
     }
 
-    public function setSerie(?string $Serie): self
+    public function setSerie(?string $serie): self
     {
-        $this->Serie = $Serie;
+        $this->serie = $serie;
 
         return $this;
     }
 
-    public function getDateMiseEnMarche(): ?\DateTimeInterface
+    public function getDateMiseCirculation(): ?\DateTimeInterface
     {
-        return $this->dateMiseEnMarche;
+        return $this->date_mise_circulation;
     }
 
-    public function setDateMiseEnMarche(?\DateTimeInterface $dateMiseEnMarche): self
+    public function setDateMiseCirculation(?\DateTimeInterface $date_mise_circulation): self
     {
-        $this->dateMiseEnMarche = $dateMiseEnMarche;
-
-        return $this;
-    }
-    
-    public function getPrixJour(): ?string
-    {
-        return $this->prixJour;
-    }
-
-    public function setPrixJour(?string $prixJour): self
-    {
-        $this->prixJour = $prixJour;
+        $this->date_mise_circulation = $date_mise_circulation;
 
         return $this;
     }
 
     /**
-     * @return Collection|Location[]
+     * @return mixed
      */
-    public function getLocations(): Collection
+    public function getModele()
     {
-        return $this->locations;
+        return $this->modele;
     }
 
-    public function addLocation(Location $location): self
+    /**
+     * @param mixed $modele
+     */
+    public function setModele($modele): void
     {
-        if (!$this->locations->contains($location)) {
-            $this->locations[] = $location;
-            $location->setVoiture($this);
+        $this->modele = $modele;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocationsVoiture(): Collection
+    {
+        return $this->locationsVoiture;
+    }
+
+    public function addLocationsVoiture(Location $locationsVoiture): self
+    {
+        if (!$this->locationsVoiture->contains($locationsVoiture)) {
+            $this->locationsVoiture[] = $locationsVoiture;
+            $locationsVoiture->setVoitureLoc($this);
         }
 
         return $this;
     }
 
-    public function removeLocation(Location $location): self
+    public function removeLocationsVoiture(Location $locationsVoiture): self
     {
-        if ($this->locations->removeElement($location)) {
+        if ($this->locationsVoiture->removeElement($locationsVoiture)) {
             // set the owning side to null (unless already changed)
-            if ($location->getVoiture() === $this) {
-                $location->setVoiture(null);
+            if ($locationsVoiture->getVoitureLoc() === $this) {
+                $locationsVoiture->setVoitureLoc(null);
             }
         }
 
         return $this;
     }
 
-
-
-    public function getModel(): ?Model
+    public function getMarque(): ?Modele
     {
-        return $this->model;
+        return $this->marque;
     }
 
-    public function setModel(?Model $model): self
+    public function setMarque(?Modele $marque): self
     {
-        $this->model = $model;
+        $this->marque = $marque;
 
         return $this;
     }
- 
+
+
+
+
+
 }

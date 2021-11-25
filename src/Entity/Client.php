@@ -25,11 +25,6 @@ class Client
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $prenom;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $cin;
@@ -37,16 +32,22 @@ class Client
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $adresse;
 
     /**
-     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="client")
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="clientLocation")
      */
-    private $locations;
+    private $locationsClient;
 
     public function __construct()
     {
-        $this->locations = new ArrayCollection();
+        $this->locationsClient = new ArrayCollection();
+
     }
 
 
@@ -67,18 +68,6 @@ class Client
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(?string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
     public function getCin(): ?int
     {
         return $this->cin;
@@ -87,6 +76,18 @@ class Client
     public function setCin(?int $cin): self
     {
         $this->cin = $cin;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -106,30 +107,34 @@ class Client
     /**
      * @return Collection|Location[]
      */
-    public function getLocations(): Collection
+    public function getLocationsClient(): Collection
     {
-        return $this->locations;
+        return $this->locationsClient;
     }
 
-    public function addLocation(Location $location): self
+    public function addLocationsClient(Location $locationsClient): self
     {
-        if (!$this->locations->contains($location)) {
-            $this->locations[] = $location;
-            $location->setClient($this);
+        if (!$this->locationsClient->contains($locationsClient)) {
+            $this->locationsClient[] = $locationsClient;
+            $locationsClient->setClientLocation($this);
         }
 
         return $this;
     }
 
-    public function removeLocation(Location $location): self
+    public function removeLocationsClient(Location $locationsClient): self
     {
-        if ($this->locations->removeElement($location)) {
+        if ($this->locationsClient->removeElement($locationsClient)) {
             // set the owning side to null (unless already changed)
-            if ($location->getClient() === $this) {
-                $location->setClient(null);
+            if ($locationsClient->getClientLocation() === $this) {
+                $locationsClient->setClientLocation(null);
             }
         }
 
         return $this;
     }
+
+
+
+
 }

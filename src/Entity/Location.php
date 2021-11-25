@@ -18,29 +18,30 @@ class Location
     private $id;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $dateDebut;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $dateRetour;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $prix;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="locations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="locations")
      */
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Voiture::class, inversedBy="locations")
+     * @ORM\ManyToOne(targetEntity=Voiture::class, inversedBy="locationsVoiture")
      */
-    private $voiture;
+    private $voitureLoc;
+
 
 
     public function getId(): ?int
@@ -53,59 +54,70 @@ class Location
         return $this->dateDebut;
     }
 
-    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
         $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
-    public function getDateRetour(): ?\DateTimeInterface
+    public function getDateRetour(): ?string
     {
         return $this->dateRetour;
     }
 
-    public function setDateRetour(?\DateTimeInterface $dateRetour): self
+    public function setDateRetour(string $dateRetour): self
     {
         $this->dateRetour = $dateRetour;
 
         return $this;
     }
 
-    public function getPrix(): ?string
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(?string $prix): self
+    public function setPrix(?float $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-
-    public function getClient(): ?Client
+    /**
+     * @return mixed
+     */
+    public function getClient()
     {
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client): void
     {
         $this->client = $client;
+    }
+
+   
+
+
+    public function getVoitureLoc(): ?Voiture
+    {
+        return $this->voitureLoc;
+    }
+
+    public function setVoitureLoc(?Voiture $voitureLoc): self
+    {
+        $this->voitureLoc = $voitureLoc;
 
         return $this;
     }
 
-    public function getVoiture(): ?Voiture
-    {
-        return $this->voiture;
-    }
 
-    public function setVoiture(?Voiture $voiture): self
-    {
-        $this->voiture = $voiture;
 
-        return $this;
-    }
+
+
 }

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ModelRepository;
+use App\Repository\ModeleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ModelRepository::class)
+ * @ORM\Entity(repositoryClass=ModeleRepository::class)
  */
-class Model
+class Modele
 {
     /**
      * @ORM\Id
@@ -30,13 +30,13 @@ class Model
     private $pays;
 
     /**
-     * @ORM\OneToMany(targetEntity=Voiture::class, mappedBy="model")
+     * @ORM\OneToMany(targetEntity=Voiture::class, mappedBy="marque")
      */
-    private $voiture;
+    private $voitures;
 
     public function __construct()
     {
-        $this->voiture = new ArrayCollection();
+        $this->voitures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,16 +71,16 @@ class Model
     /**
      * @return Collection|Voiture[]
      */
-    public function getVoiture(): Collection
+    public function getVoitures(): Collection
     {
-        return $this->voiture;
+        return $this->voitures;
     }
 
     public function addVoiture(Voiture $voiture): self
     {
-        if (!$this->voiture->contains($voiture)) {
-            $this->voiture[] = $voiture;
-            $voiture->setModel($this);
+        if (!$this->voitures->contains($voiture)) {
+            $this->voitures[] = $voiture;
+            $voiture->setMarque($this);
         }
 
         return $this;
@@ -88,10 +88,10 @@ class Model
 
     public function removeVoiture(Voiture $voiture): self
     {
-        if ($this->voiture->removeElement($voiture)) {
+        if ($this->voitures->removeElement($voiture)) {
             // set the owning side to null (unless already changed)
-            if ($voiture->getModel() === $this) {
-                $voiture->setModel(null);
+            if ($voiture->getMarque() === $this) {
+                $voiture->setMarque(null);
             }
         }
 

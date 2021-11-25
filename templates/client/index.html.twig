@@ -10,8 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
                 <th>Cin</th>
+                <th>Prenom</th>
                 <th>Adresse</th>
                 <th>actions</th>
             </tr>
@@ -21,8 +21,8 @@
             <tr>
                 <td>{{ client.id }}</td>
                 <td>{{ client.nom }}</td>
-                <td>{{ client.prenom }}</td>
                 <td>{{ client.cin }}</td>
+                <td>{{ client.prenom }}</td>
                 <td>{{ client.adresse }}</td>
                 <td>
                     <a href="{{ path('client_show', {'id': client.id}) }}">show</a>
