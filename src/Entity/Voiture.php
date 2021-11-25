@@ -30,11 +30,6 @@ class Voiture
     private $dateMiseEnMarche;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $modele;
-
-    /**
      * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
     private $prixJour;
@@ -83,18 +78,6 @@ class Voiture
 
         return $this;
     }
-
-    public function getModele(): ?string
-    {
-        return $this->modele;
-    }
-
-    public function setModele(?string $modele): self
-    {
-        $this->modele = $modele;
-
-        return $this;
-    }
     
     public function getPrixJour(): ?string
     {
@@ -138,10 +121,7 @@ class Voiture
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->modele;
-    }
+
 
     public function getModel(): ?Model
     {

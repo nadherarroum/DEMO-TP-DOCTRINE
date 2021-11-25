@@ -3,6 +3,10 @@
     Série : <input type="text" name="input_serie">
     <input type="submit" name="Rechercher">
 </form>
+<form action="" method="POST">
+    Model : <input type="text" name="input_libelle">
+    <input type="submit" name="Rechercher">
+</form>
 
 {% if voitures is empty %}
     Aucune voiture trouvée !
@@ -14,8 +18,8 @@
     </tr>
     {% for v in voitures %}
         <tr>
-            <td>{{ v.Serie }}</td>
-            <td>{{ v.modele }}</td>
+            <td>{{ v[0].Serie }}</td>
+            <td>{{ v.model }}</td>
         </tr>
     {% endfor %}
 </table>

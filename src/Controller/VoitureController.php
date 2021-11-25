@@ -90,6 +90,15 @@ class VoitureController extends AbstractController
                 "SELECT v FROM App\Entity\Voiture v WHERE v.Serie LIKE '".$serie."'");
             $voitures = $query->getResult();
         }
+        
+        if ($request->isMethod('POST')) {
+            $libelle = $request->request->get("input_libelle");
+            $query = $em->createQuery(
+                "SELECT v FROM App\Entity\Voiture v JOIN v.model m
+                WHERE m.libelle  LIKE '".$libelle."'");
+            $voitures = $query->getResult();
+        }
+        
         return $this->render('voiture/rechercheVoiture.html.twig', [
             "voitures" => $voitures,
         ]);
