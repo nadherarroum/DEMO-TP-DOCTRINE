@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Modele;
 use App\Repository\VoitureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -40,7 +41,7 @@ class Voiture
     private $locations;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Model::class, inversedBy="voiture")
+     * @ORM\ManyToOne(targetEntity=Modele::class, inversedBy="voiture")
      */
     private $model;
 
@@ -126,12 +127,12 @@ class Voiture
         return $this->model;
     }
 
-    public function getModel(): ?Model
+    public function getModel(): ?Modele
     {
         return $this->model;
     }
 
-    public function setModel(?Model $model): self
+    public function setModel(?Modele $model): self
     {
         $this->model = $model;
 

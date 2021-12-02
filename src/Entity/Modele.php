@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Voiture;
 use App\Repository\ModeleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
