@@ -22,33 +22,31 @@ class Voiture
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $serie;
+    private $Serie;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date_mise_circulation;
+    private $dateMiseEnMarche;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
-    private $modele;
+    private $prixJour;
 
     /**
-     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="voitureLoc")
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="voiture")
      */
-    private $locationsVoiture;
+    private $locations;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Modele::class, inversedBy="voitures")
+     * @ORM\ManyToOne(targetEntity=Model::class, inversedBy="voiture")
      */
-    private $marque;
-
-
+    private $model;
 
     public function __construct()
     {
-        $this->locationsVoiture = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
 
@@ -59,88 +57,85 @@ class Voiture
 
     public function getSerie(): ?string
     {
-        return $this->serie;
+        return $this->Serie;
     }
 
-    public function setSerie(?string $serie): self
+    public function setSerie(?string $Serie): self
     {
-        $this->serie = $serie;
+        $this->Serie = $Serie;
 
         return $this;
     }
 
-    public function getDateMiseCirculation(): ?\DateTimeInterface
+    public function getDateMiseEnMarche(): ?\DateTimeInterface
     {
-        return $this->date_mise_circulation;
+        return $this->dateMiseEnMarche;
     }
 
-    public function setDateMiseCirculation(?\DateTimeInterface $date_mise_circulation): self
+    public function setDateMiseEnMarche(?\DateTimeInterface $dateMiseEnMarche): self
     {
-        $this->date_mise_circulation = $date_mise_circulation;
+        $this->dateMiseEnMarche = $dateMiseEnMarche;
 
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getModele()
+    
+    public function getPrixJour(): ?string
     {
-        return $this->modele;
+        return $this->prixJour;
     }
 
-    /**
-     * @param mixed $modele
-     */
-    public function setModele($modele): void
+    public function setPrixJour(?string $prixJour): self
     {
-        $this->modele = $modele;
+        $this->prixJour = $prixJour;
+
+        return $this;
     }
 
     /**
      * @return Collection|Location[]
      */
-    public function getLocationsVoiture(): Collection
+    public function getLocations(): Collection
     {
-        return $this->locationsVoiture;
+        return $this->locations;
     }
 
-    public function addLocationsVoiture(Location $locationsVoiture): self
+    public function addLocation(Location $location): self
     {
-        if (!$this->locationsVoiture->contains($locationsVoiture)) {
-            $this->locationsVoiture[] = $locationsVoiture;
-            $locationsVoiture->setVoitureLoc($this);
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setVoiture($this);
         }
 
         return $this;
     }
 
-    public function removeLocationsVoiture(Location $locationsVoiture): self
+    public function removeLocation(Location $location): self
     {
-        if ($this->locationsVoiture->removeElement($locationsVoiture)) {
+        if ($this->locations->removeElement($location)) {
             // set the owning side to null (unless already changed)
-            if ($locationsVoiture->getVoitureLoc() === $this) {
-                $locationsVoiture->setVoitureLoc(null);
+            if ($location->getVoiture() === $this) {
+                $location->setVoiture(null);
             }
         }
 
         return $this;
     }
 
-    public function getMarque(): ?Modele
+    public function __toString()
     {
-        return $this->marque;
+        return $this->model;
     }
 
-    public function setMarque(?Modele $marque): self
+    public function getModel(): ?Model
     {
-        $this->marque = $marque;
+        return $this->model;
+    }
+
+    public function setModel(?Model $model): self
+    {
+        $this->model = $model;
 
         return $this;
     }
-
-
-
-
-
+ 
 }
